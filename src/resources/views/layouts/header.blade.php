@@ -2,7 +2,7 @@
     <div class="header-inner">
         <div class="header-utilities">
             <div class="logo">
-                <img src="{{ asset('images/logo.png') }}" alt="ロゴ">
+                <img src="{{ asset('images/COACHTECHヘッダーロゴ.png') }}" alt="ロゴ">
             </div>
 
             <nav>
