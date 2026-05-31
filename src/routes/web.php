@@ -14,3 +14,7 @@ use App\Http\Controllers\AuthController;
 */
 
 Route::get('/attendance', [AuthController::class, 'index']);
+
+Route::get('/', function () {
+    return redirect('/login');
+});
