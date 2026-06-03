@@ -11,9 +11,9 @@
     @yield('css')
 </head>
 <body>
-    @include('layouts.header')  
+    @include('layouts.header')
 <main>
     @yield('content')
-</main>    
+</main>
 </body>
 </html>
