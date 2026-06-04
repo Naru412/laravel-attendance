@@ -1,0 +1,24 @@
+.register-container {
+    text-align: center;
+}
+
+.form__input--text input {
+    width: 40%;
+    padding: 10px;
+}
+
+.form__group {
+    margin: 30px;
+}
+
+.form__button-submit {
+    width: 40%;
+    padding: 10px;
+    margin: 10px;
+    color: aliceblue;
+    background-color: black;
+}
+
+.login__button-submit {
+    text-decoration: none;
+}
