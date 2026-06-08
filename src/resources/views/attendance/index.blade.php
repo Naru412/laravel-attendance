@@ -7,8 +7,8 @@
 @section('content')
 <div class="attendance">
     <p class="status">勤務外</p>
-    <p class="date">2023年6月1日(木)</p>
-    <p class="time">08:00</p>
+    <p class="date">{{ $now->format('Y年n月j日') }}</p>
+    <p class="time">{{ $now->format('H:i') }}</p>
     <button class="work-button">
         出勤
     </button>

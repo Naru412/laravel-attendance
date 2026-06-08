@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AttendanceController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,8 +13,10 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::get('/attendance', [AuthController::class, 'index']);
+Route::get('/attendance', [AttendanceController::class, 'index']);
 
 Route::get('/', function () {
     return redirect('/login');
-});
+    });
+
+   
