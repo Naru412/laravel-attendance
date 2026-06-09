@@ -9,6 +9,11 @@
     <p class="status">{{ $status }}</p>
     <p class="date">{{ $now->format('Y年n月j日') }}</p>
     <p class="time">{{ $now->format('H:i') }}</p>
+    @if(session('message'))
+        <p class="message">
+            {{ session('message') }}
+        </p>
+    @endif
 
     @if($status === '勤務外')
         <form action="/attendance/clock-in" method="post">
@@ -21,7 +26,12 @@
 
     @if($status === '出勤中')
         <div class="button-area">
-            <button class="work-button">退勤</button>
+            <form action="/attendance/clock-out" method="post">
+                @csrf
+                <button type="submit" class="work-button">
+                    退勤
+                </button>
+            </form>
 
             <form action="/attendance/break-in" method="post">
                 @csrf

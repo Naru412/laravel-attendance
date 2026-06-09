@@ -77,4 +77,18 @@ class AttendanceController extends Controller
 
         return redirect('/attendance');
     }
+
+    public function clockOut()
+    {
+        $attendance = Attendance::where('user_id', auth()->id())
+            ->whereDate('work_date', today())
+            ->first();
+
+        $attendance->update([
+            'clock_out' => now(),
+        ]);
+        
+        return redirect('/attendance')
+            ->with('message', 'お疲れさまでした。');
+    }
 }

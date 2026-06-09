@@ -17,6 +17,7 @@ Route::get('/attendance', [AttendanceController::class, 'index']);
 Route::post('/attendance/clock-in', [AttendanceController::class, 'clockIn']);
 Route::post('/attendance/break-in', [AttendanceController::class, 'breakIn']);
 Route::post('/attendance/break-out', [AttendanceController::class, 'breakOut']);
+Route::post('/attendance/clock-out', [AttendanceController::class, 'clockOut']);
 
 
 
