@@ -22,7 +22,13 @@
     @if($status === '出勤中')
         <div class="button-area">
             <button class="work-button">退勤</button>
-            <button class="break-button">休憩入</button>
+
+            <form action="/attendance/break-in" method="post">
+                @csrf
+                <button type="submit" class="break-button">
+                    休憩入
+                </button>
+            </form>
         </div>
     @endif
 </div>

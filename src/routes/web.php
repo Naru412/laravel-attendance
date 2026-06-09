@@ -15,6 +15,8 @@ use App\Http\Controllers\AttendanceController;
 
 Route::get('/attendance', [AttendanceController::class, 'index']);
 Route::post('/attendance/clock-in', [AttendanceController::class, 'clockIn']);
+Route::post('/attendance/break-in', [AttendanceController::class, 'breakIn']);
+
 
 
 Route::get('/', function () {
