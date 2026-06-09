@@ -14,9 +14,13 @@ use App\Http\Controllers\AttendanceController;
 */
 
 Route::get('/attendance', [AttendanceController::class, 'index']);
+Route::post('/attendance/clock-in', [AttendanceController::class, 'clockIn']);
+
 
 Route::get('/', function () {
     return redirect('/login');
     });
+
+    
 
    
