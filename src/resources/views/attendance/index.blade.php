@@ -31,5 +31,14 @@
             </form>
         </div>
     @endif
+
+    @if($status === '休憩中')
+        <form action="/attendance/break-out" method="post">
+            @csrf
+            <button type="submit" class="break-button">
+                休憩戻
+            </button>
+        </form>
+    @endif
 </div>
 @endsection

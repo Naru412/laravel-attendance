@@ -60,4 +60,21 @@ class AttendanceController extends Controller
         ]);
         return redirect('/attendance');
     }
+
+    public function breakOut()
+    {
+        $attendance = Attendance::where('user_id', auth()->id())
+            ->whereDate('work_date', today())
+            ->first();
+
+        $break = BreakTime::where('attendance_id', $attendance->id)
+            ->whereNull('break_end')
+            ->first();
+            
+        $break->update([
+            'break_end' => now(),
+        ]);
+
+        return redirect('/attendance');
+    }
 }
