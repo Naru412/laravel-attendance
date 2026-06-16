@@ -7,7 +7,7 @@
 @section('content')
 <div class="attendance">
     <p class="status">{{ $status }}</p>
-    <p class="date">{{ $now->format('Y年n月j日') }}</p>
+    <p class="date">{{ $now->locale('ja')->isoFormat('YYYY年M月D日(ddd)') }}</p>
     <p class="time">{{ $now->format('H:i') }}</p>
     @if(session('message'))
         <p class="message">
