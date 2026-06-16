@@ -19,7 +19,8 @@ Route::post('/attendance/break-in', [AttendanceController::class, 'breakIn']);
 Route::post('/attendance/break-out', [AttendanceController::class, 'breakOut']);
 Route::post('/attendance/clock-out', [AttendanceController::class, 'clockOut']);
 
-
+Route::get('/attendance/list', [AttendanceController::class, 'list']);
+Route::get('/attendance/{id}', [AttendanceController::class, 'show']);
 
 Route::get('/', function () {
     return redirect('/login');

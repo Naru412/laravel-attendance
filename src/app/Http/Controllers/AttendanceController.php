@@ -91,4 +91,20 @@ class AttendanceController extends Controller
         return redirect('/attendance')
             ->with('message', 'お疲れさまでした。');
     }
+
+    public function list()
+    {
+        $attendances = Attendance::where('user_id', auth()->id())
+            ->orderBy('work_date', 'desc')
+            ->get();
+
+        return view('attendance.list', compact('attendances'));
+    }
+
+    public function show($id)
+    {
+        $attendance = Attendance::findOrFail($id);
+        
+        return view('attendance.detail',compact('attendance'));
+    }
 }
