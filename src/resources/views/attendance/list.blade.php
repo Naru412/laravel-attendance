@@ -25,11 +25,42 @@
         </tr>
         @foreach($attendances as $attendance)
         <tr>
-            <td>{{ \Carbon\Carbon::parse($attendance->work_date)->locale('ja')->isoFormat('MM/DD/(ddd)') }}</td>
+            <td>{{ \Carbon\Carbon::parse($attendance->work_date)->locale('ja')->isoFormat('MM/DD(ddd)') }}</td>
             <td>{{ \Carbon\Carbon::parse($attendance->clock_in)->format('H:i') }}</td>
             <td>{{ \Carbon\Carbon::parse($attendance->clock_out)->format('H:i') }}</td>
-            <td>-</td>
-            <td>-</td>
+            <td>
+                @php
+                    $breakMinutes = 0;
+
+                    foreach ($attendance->breaks as $break) {
+                        if ($break->break_start && $break->break_end) {
+                            $breakMinutes += \Carbon\Carbon::parse($break->break_start)
+                                ->diffInMinutes(\Carbon\Carbon::parse($break->break_end)); 
+                        }
+                    }
+
+                    $breakHours = floor($breakMinutes /60);
+                    $breakMinute = $breakMinutes % 60;
+                @endphp
+
+                @if ($breakMinutes > 0)
+                    {{ sprintf('%02d:%02d', $breakHours, $breakMinute) }}
+                @endif
+            </td>
+            <td>
+                @if($attendance->clock_in && $attendance->clock_out)
+                    @php
+                        $workMinutes = \Carbon\Carbon::parse($attendance->clock_in)
+                            ->diffInMinutes(\Carbon\Carbon::parse($attendance->clock_out));
+
+                        $totalMinutes = $workMinutes - $breakMinutes;
+                        $hours = floor($totalMinutes / 60);
+                        $minutes = $totalMinutes % 60;
+                    @endphp
+
+                    {{ sprintf('%02d:%02d', $hours, $minutes) }}
+                @endif
+            </td>
             <td><a href="">詳細</a></td>
         </tr>
         @endforeach
