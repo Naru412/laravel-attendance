@@ -107,4 +107,27 @@ class AttendanceController extends Controller
         
         return view('attendance.detail',compact('attendance'));
     }
+
+    public function update(Request $request, $id)
+    {
+        $attendance = Attendance::findOrFail($id);
+
+        $attendance->update([
+            'clock_in' => $attendance->work_date . ' ' . $request->clock_in,
+            'clock_out' => $attendance->work_date . ' ' . $request->clock_out,
+        ]);
+
+        //休憩更新
+        foreach ($request->break_ids as $index => $breakId) {
+
+            $break = BreakTime::findOrFail($breakId);
+
+            $break->update([
+                'break_start' => $attendance->work_date . ' ' . $request->break_starts[$index],
+                'break_end' => $attendance->work_date . ' ' . $request->break_ends[$index],
+            ]);
+        }
+        
+        return redirect('/attendance/' .$id);
+    }
 }

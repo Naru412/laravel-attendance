@@ -8,7 +8,7 @@
 <main class="attendance-detail">
     <h2>勤怠詳細</h2>
 
-    <form action="" method="post">
+    <form action="/attendance/{{ $attendance->id }}" method="post">
         @csrf
 
         <table class="detail-table">
@@ -28,18 +28,21 @@
             <tr>
                 <th>出勤・退勤</th>
                 <td>
-                    <input type="time" value="{{ \Carbon\Carbon::parse($attendance->clock_in)->format('H:i') }}">
+                    <input type="time" name="clock_in" value="{{ \Carbon\Carbon::parse($attendance->clock_in)->format('H:i') }}">
                     ～
-                    <input type="time" value="{{ \Carbon\Carbon::parse($attendance->clock_out)->format('H:i') }}">
+                    <input type="time" name="clock_out"  value="{{ \Carbon\Carbon::parse($attendance->clock_out)->format('H:i') }}">
                 </td>
             </tr>
 
             <tr>
                 <th>休憩</th>
                 <td>
-                    <input type="time" value="12:00">
-                    ～
-                    <input type="time" value="13:00">
+                    @foreach($attendance->breaks as $break)
+                        <input type="hidden" name="break_ids[]" value="{{ $break->id }}">
+                        <input type="time" name="break_starts[]" value="{{ \Carbon\Carbon::parse($break->break_start)->format('H:i') }}">
+                        ～
+                        <input type="time" name="break_ends[]" value="{{ \Carbon\Carbon::parse($break->break_end)->format('H:i') }}">
+                    @endforeach
                 </td>
             </tr>
 
