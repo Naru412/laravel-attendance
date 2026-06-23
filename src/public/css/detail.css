@@ -50,3 +50,26 @@ body {
     font-size: 16px;
     cursor:pointer;
 }
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+    display: none;
+}
+
+.error-message {
+    color: red;
+}
+
+.date-year {
+    margin-right: 60px;
+}
+
+.time-input {
+    width:120px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.time-separator {
+    display: inline-block;
+    margin: 0 30px;
+}

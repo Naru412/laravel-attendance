@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Attendance;
 use App\Models\BreakTime;
+use App\Http\Requests\AttendanceUpdateRequest;
 
 
 class AttendanceController extends Controller
@@ -108,7 +109,7 @@ class AttendanceController extends Controller
         return view('attendance.detail',compact('attendance'));
     }
 
-    public function update(Request $request, $id)
+    public function update(AttendanceUpdateRequest $request, $id)
     {
         $attendance = Attendance::findOrFail($id);
 
