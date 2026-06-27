@@ -27,11 +27,11 @@ class AttendanceUpdateRequest extends FormRequest
             'clock_in' => ['required'],
             'clock_out' => ['required', 'after:clock_in'],
 
-            'break_starts' => ['required', 'array'],
-            'break_ends' => ['required', 'array'],
+            'break_starts' => ['nullable', 'array'],
+            'break_ends' => ['nullable', 'array'],
 
-            'break_starts.*' => ['required'],
-            'break_ends.*' => ['required'],
+            'break_starts.*' => ['nullable'],
+            'break_ends.*' => ['nullable'],
 
             'remark' => ['required'],
         ];
