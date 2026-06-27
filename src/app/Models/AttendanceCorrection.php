@@ -17,4 +17,14 @@ class AttendanceCorrection extends Model
         'remarks',
         'status',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function attendance()
+    {
+        return $this->belongsTo(Attendance::class);
+    }
 }

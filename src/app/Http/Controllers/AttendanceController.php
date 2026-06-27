@@ -131,7 +131,6 @@ class AttendanceController extends Controller
             'remarks' => $request->remark,
             'status' => 'pending',
         ]);
-        dd('$attendanceCorrection');
 
         /* $attendance->update([
             'clock_in' => $attendance->work_date . ' ' . $request->clock_in,
@@ -159,5 +158,15 @@ class AttendanceController extends Controller
         }
         
         return redirect('/attendance/' .$id);
+    }
+
+    //申請一覧
+    public function requestList()
+    {
+        $corrections = AttendanceCorrection::where('user_id', auth()->id())
+            ->where('status', 'pending')
+            ->get();
+
+            return view('attendance.request_list', compact('corrections'));
     }
 }
