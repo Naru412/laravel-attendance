@@ -42,10 +42,9 @@ body {
 }
 
 .request-tabs__item {
-    appearance: none;
-    -webkit-appearance: none;
-    border: none;
-    outline: none;
+    text-decoration: none;
+    color: #000;
+    margin-left: 30px;
 }
 
 .request-tabs__item--active {

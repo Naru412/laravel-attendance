@@ -161,12 +161,14 @@ class AttendanceController extends Controller
     }
 
     //申請一覧
-    public function requestList()
+    public function requestList(Request $request)
     {
+        $status = $request->query('status', 'pending');
+
         $corrections = AttendanceCorrection::where('user_id', auth()->id())
-            ->where('status', 'pending')
+            ->where('status', $status)
             ->get();
 
-            return view('attendance.request_list', compact('corrections'));
+        return view('attendance.request_list', compact('corrections', 'status'));
     }
 }

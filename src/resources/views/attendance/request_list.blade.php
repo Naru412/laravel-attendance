@@ -9,8 +9,13 @@
     <h2 class="request-list__title">申請一覧</h2>
 
     <div class="request-tabs">
-        <button class="request-tabs__item request-tabs__item--active">承認待ち</button>
-        <button class="request-tabs__item">承認済み</button>
+        <a href="/stamp_correction_request/list?status=pending" class="request-tabs__item {{ $status === 'pending' ? 'request-tabs__item--active' : ' ' }}">
+            承認待ち
+        </a>
+
+        <a href="/stamp_correction_request/list?status=approved" class="request-tabs__item {{ $status === 'approved' ? 'request-tabs__item--active' : ' ' }}">
+            承認済み
+        </a>
     </div>
 
     <table class="request-table">
