@@ -36,7 +36,7 @@
             <td>{{ $correction->remarks }}</td>
             <td>{{ $correction->created_at->format('Y/m/d') }}</td>
             <td>
-                <a href="">詳細</a>
+                <a href="/stamp_correction_request/{{ $correction->id }}">詳細</a>
             </td>
         </tr>
         @endforeach

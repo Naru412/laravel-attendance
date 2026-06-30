@@ -26,3 +26,7 @@
 .register__button-submit {
     text-decoration: none;
 }
+
+.error-message {
+    color: red;
+}

@@ -171,4 +171,12 @@ class AttendanceController extends Controller
 
         return view('attendance.request_list', compact('corrections', 'status'));
     }
+
+    //申請詳細
+    public function requestDetail($id)
+    {
+        $correction = AttendanceCorrection::findOrFail($id);
+
+        return view('attendance.request_detail', compact('correction'));
+    }
 }
