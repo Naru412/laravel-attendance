@@ -39,6 +39,10 @@ class FortifyServiceProvider extends ServiceProvider
         });
 
         Fortify::authenticateUsing(function (Request $request) {
+            $request->validate([
+                'email' => ['required', 'email'],
+                'password' => ['required'],
+            ]);
 
             $user = User::where('email', $request->email)->first();
 

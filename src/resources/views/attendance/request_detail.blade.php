@@ -1,30 +1,26 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/detail.css') }}">
+<link rel="stylesheet" href="{{ asset('css/request_detail.css') }}">
 @endsection
 
 @section('content')
 <main class="attendance-detail">
     <h2>勤怠詳細</h2>
-
-    <form action="/attendance/{{ $attendance->id }}" method="post">
-        @csrf
-
         <table class="detail-table">
             <tr>
                 <th>名前</th>
-                <td>{{ $attendance->user->name }}</td>
+                <td>{{ $correction->attendance->user->name }}</td>
             </tr>
 
             <tr>
                 <th>日付</th>
                 <td>
                     <span class="date-year">
-                        {{ \Carbon\Carbon::parse($attendance->work_date)->format('Y年') }}
+                        {{ \Carbon\Carbon::parse($correction->attendance->work_date)->format('Y年') }}
                     </span>
                     <span class="date-day">
-                        {{ \Carbon\Carbon::parse($attendance->work_date)->format('n月j日') }}
+                        {{ \Carbon\Carbon::parse($correction->attendance->work_date)->format('n月j日') }}
                     </span>
                 </td>
             </tr>
@@ -32,9 +28,9 @@
             <tr>
                 <th>出勤・退勤</th>
                 <td>
-                    <input class="time-input" type="time" name="clock_in" value="{{ old('clock_in', $attendance->clock_in ? \Carbon\Carbon::parse($attendance->clock_in)->format('H:i') : '') }}">
+                    <input class="time-input" type="time" name="clock_in" value="{{ old('clock_in', $correction->requested_clock_in ? \Carbon\Carbon::parse($correction->requested_clock_in)->format('H:i') : '') }}">
                     <span class="time-separator">～</span>
-                    <input class="time-input" type="time" name="clock_out"  value="{{ old('clock_out', $attendance->clock_out ?  \Carbon\Carbon::parse($attendance->clock_out)->format('H:i') : '') }}">
+                    <input class="time-input" type="time" name="clock_out"  value="{{ old('clock_out', $correction->requested_clock_out ?  \Carbon\Carbon::parse($correction->requested_clock_out)->format('H:i') : '') }}">
 
                     @error('clock_in')
                         <p class="error-message">{{ $message }}</p>
@@ -46,7 +42,7 @@
                 </td>
             </tr>
 
-            @foreach($attendance->breaks as $index => $break)
+            @foreach($correction->breakCorrections as $index => $breakCorrection)
             <tr>
                 <th>
                     @if($index === 0)
@@ -56,11 +52,11 @@
                     @endif
                 </th>
                 <td>
-                    <input type="hidden" name="break_ids[]" value="{{ $break->id }}">
+                    <input type="hidden" name="break_ids[]" value="{{ $breakCorrection->break_id }}">
 
-                    <input class="time-input" type="time" name="break_starts[]" value="{{ old('break_starts.' . $index, $break->break_start ? \Carbon\Carbon::parse($break->break_start)->format('H:i') : '') }}">
+                    <input class="time-input" type="time" name="break_starts[]" value="{{ old('break_starts.' . $index, $breakCorrection->requested_break_start ? \Carbon\Carbon::parse($breakCorrection->requested_break_start)->format('H:i') : '') }}">
                     <span class="time-separator">～</span>
-                    <input class="time-input" type="time" name="break_ends[]" value="{{ old('break_ends.' . $index, $break->break_end ? \Carbon\Carbon::parse($break->break_end)->format('H:i') : '') }}">    
+                    <input class="time-input" type="time" name="break_ends[]" value="{{ old('break_ends.' . $index, $breakCorrection->requested_break_end ? \Carbon\Carbon::parse($breakCorrection->requested_break_end)->format('H:i') : '') }}">    
 
                     @error('break_starts.' . $index)
                         <p class="error-message">{{ $message }}</p>
@@ -74,31 +70,24 @@
             @endforeach
 
             <tr>
-                <th>休憩{{ $attendance->breaks->count() + 1 }}</th>
+                <th>休憩{{ $correction->breakCorrections->count() + 1 }}</th>
                 <td>
                     <input type="hidden"  name="break_ids[]" value="">
-                    <input class="time-input" type="time" name="break_starts[]" value="{{ old('break_starts.' . $attendance->breaks->count()) }}">
+                    <input class="time-input" type="time" name="break_starts[]" value="{{ old('break_starts.' . $correction->breakCorrections->count()) }}">
                     <span class="time-separator">～</span>
-                    <input class="time-input" type="time" name="break_ends[]" value="{{ old('break_ends.' . $attendance->breaks->count()) }}">
+                    <input class="time-input" type="time" name="break_ends[]" value="{{ old('break_ends.' . $correction->breakCorrections->count()) }}">
                 </td>
             </tr>
                     
             <tr>
                 <th>備考</th>
                 <td>
-                    <textarea name="remark">{{ old('remark', $attendance->remark) }}</textarea>
+                    <textarea name="remark">{{ old('remark', $correction->remarks) }}</textarea>
                     @error('remark')
                         <p class="error-message">{{ $message }}</p>
                     @enderror
                 </td>
             </tr>
         </table>
-
-        <div class="button-area">
-            <button type="submit" class="update-btn">
-                修正
-            </button>
-        </div>
-    </form>
 </main>
 @endsection

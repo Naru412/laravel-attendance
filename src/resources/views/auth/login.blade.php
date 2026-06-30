@@ -9,7 +9,7 @@
     <div class="login-form__heading">
         <h1>ログイン</h1>
     </div>
-    <form class="form" action="/login" method="post">
+    <form class="form" action="{{ route('login') }}" method="post" novalidate autocomplete="off">
         @csrf
         <div class="form__group">
             <div class="form__group-title">
@@ -17,11 +17,11 @@
             </div>
             <div class="form__group-content">
                 <div class="form__input--text">
-                    <input type="email" name="email" value="{{ old('email') }}" />
+                    <input type="email" name="email" value="{{ old('email') }}"autocomplete="off">
                 </div>
                 <div class="form__error">
                     @error('email')
-                    {{ $message }}
+                        <p class="error-message">{{ $message }}</p>
                     @enderror
                 </div>
             </div>
@@ -37,7 +37,7 @@
                 </div>
                 <div class="form__error">
                     @error('password')
-                    {{ $message }}
+                        <p class="error-message">{{ $message }}</p>
                     @enderror
                 </div>
             </div>
