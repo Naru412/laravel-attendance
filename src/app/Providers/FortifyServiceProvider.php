@@ -50,6 +50,9 @@ class FortifyServiceProvider extends ServiceProvider
                 $user &&
                 Hash::check($request->password, $user->password)
             ) {
+                if ($request->login_type === 'admin' && $user->role !== 'admin') {
+                    return null;
+                }
                 return $user;
             }
             return null;
