@@ -1,16 +1,17 @@
 @extends('layouts.app')
 
 @section('css')
-<link href="{{asset('/css/login.css')}}" rel="stylesheet" >
+<link href="{{asset('/css/admin_login.css')}}" rel="stylesheet" >
 @endsection
 
 @section('content')
 <div class="login-container">
     <div class="login-form__heading">
-        <h1>管理者ログインする</h1>
+        <h1>管理者ログイン</h1>
     </div>
     <form class="form" action="{{ route('login') }}" method="post" novalidate autocomplete="off">
         @csrf
+        <input type="hidden" name="login_type" value="admin">
         <div class="form__group">
             <div class="form__group-title">
                 <span class="form__label--item">メールアドレス</span>
@@ -44,12 +45,8 @@
         </div>
 
         <div class="form__button">
-            <button class="form__button-submit" type="submit">ログインする</button>
+            <button class="form__button-submit" type="submit">管理者ログインする</button>
         </div>
     </form>
-
-    <div class="register__link">
-        <a class="register__button-submit" href="/register">会員登録はこちら</a>
-    </div>
 </div>
 @endsection
