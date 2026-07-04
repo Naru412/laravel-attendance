@@ -28,6 +28,9 @@ Route::get('/stamp_correction_request/{id}', [AttendanceController::class, 'requ
 Route::get('admin/login', function (){
     return view('auth.admin_login');
 });
+Route::get('/admin/attendance/list', [Attendancecontroller::class, 'adminList']);
+
+
 
 
 Route::get('/', function () {

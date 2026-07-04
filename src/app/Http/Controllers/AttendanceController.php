@@ -179,4 +179,10 @@ class AttendanceController extends Controller
 
         return view('attendance.request_detail', compact('correction'));
     }
+
+    //管理者一覧
+    public function adminList()
+    {
+        return view('admin.attendance_list');
+    }
 }
