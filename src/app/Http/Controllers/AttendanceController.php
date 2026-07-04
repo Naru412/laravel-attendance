@@ -183,6 +183,11 @@ class AttendanceController extends Controller
     //管理者一覧
     public function adminList()
     {
-        return view('admin.attendance_list');
+        $date = now()->toDateString();
+        $attendance = Attendance::with(['user', 'breaks'])
+            ->whereDate('work_date', $date)
+            ->get();
+
+        return view('admin.attendance_list', compact('attendance', 'date'));
     }
 }
