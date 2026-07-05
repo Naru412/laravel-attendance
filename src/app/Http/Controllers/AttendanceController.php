@@ -146,11 +146,6 @@ class AttendanceController extends Controller
             'status' => 'pending',
         ]);
 
-        /* $attendance->update([
-            'clock_in' => $attendance->work_date . ' ' . $request->clock_in,
-            'clock_out' => $attendance->work_date . ' ' . $request->clock_out,
-        ]);
- */
         //休憩更新
         foreach ($request->break_starts as $index => $breakStart) {
 
@@ -225,7 +220,7 @@ class AttendanceController extends Controller
         return view('admin.attendance_show', compact('attendance'));
     }
 
-    //管理者詳細画面修正
+    //管理者出勤退勤更新
     public function adminUpdate(Request $request, $id)
     {
         $attendance = Attendance::with('breaks')->findOrFail($id);
@@ -235,6 +230,16 @@ class AttendanceController extends Controller
             'clock_out' => $attendance->work_date . ' ' . $request->clock_out,
             'remark' => $request->remark,
         ]);
+
+        //休憩更新
+        foreach ($request->break_ids as $index => $breakId) {
+            $break = BreakTime::findOrFail($breakId);
+
+            $break->update([
+                'break_start' => $attendance->work_date . ' ' . $request->break_starts[$index],
+                'break_end' => $attendance->work_date . ' ' . $request->break_ends[$index],
+            ]);
+        }
 
         return redirect('/admin/attendance/' . $id);
     }
