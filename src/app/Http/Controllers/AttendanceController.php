@@ -101,13 +101,27 @@ class AttendanceController extends Controller
     }
 
     //勤怠一覧
-    public function list()
+    public function list(Request $request)
     {
+        $currentMonth = $request->month
+            ? Carbon::parse($request->month)
+            : Carbon::now();
+
+        $previousMonth = $currentMonth->copy()->subMonth()->format('Y-m');
+        $nextMonth = $currentMonth->copy()->addMonth()->format('Y-m');
+
         $attendances = Attendance::where('user_id', auth()->id())
+            ->whereYear('work_date', $currentMonth->year)
+            ->whereMonth('work_date', $currentMonth->month)
             ->orderBy('work_date', 'desc')
             ->get();
 
-        return view('attendance.list', compact('attendances'));
+        return view('attendance.list', compact(
+            'attendances',
+            'currentMonth',
+            'previousMonth',
+            'nextMonth'
+            ));
     }
 
     //詳細画面
