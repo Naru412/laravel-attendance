@@ -8,7 +8,7 @@
 <main class="attendance-detail">
     <h2>勤怠詳細</h2>
 
-    <form action="/attendance/{{ $attendance->id }}" method="post">
+    <form action="/admin/attendance/{{ $attendance->id }}" method="post">
         @csrf
 
         <table class="detail-table">

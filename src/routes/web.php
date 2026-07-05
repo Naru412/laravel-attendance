@@ -30,6 +30,7 @@ Route::get('admin/login', function (){
 });
 Route::get('/admin/attendance/list', [Attendancecontroller::class, 'adminList']);
 Route::get('/admin/attendance/{id}', [Attendancecontroller::class, 'adminShow']);
+Route::post('/admin/attendance/{id}', [Attendancecontroller::class, 'adminUpdate']);
 
 
 

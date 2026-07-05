@@ -224,4 +224,18 @@ class AttendanceController extends Controller
 
         return view('admin.attendance_show', compact('attendance'));
     }
+
+    //管理者詳細画面修正
+    public function adminUpdate(Request $request, $id)
+    {
+        $attendance = Attendance::with('breaks')->findOrFail($id);
+
+        $attendance->update([
+            'clock_in' => $attendance->work_date . ' ' . $request->clock_in,
+            'clock_out' => $attendance->work_date . ' ' . $request->clock_out,
+            'remark' => $request->remark,
+        ]);
+
+        return redirect('/admin/attendance/' . $id);
+    }
 }
