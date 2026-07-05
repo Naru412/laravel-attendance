@@ -1,31 +1,38 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/list.css') }}">
+<link rel="stylesheet" href="{{ asset('css/admin_attendance_list.css') }}">
 @endsection
 
 @section('content')
 <main class="attendance-list">
-    <h2>勤怠一覧</h2>
+    <h2>{{ \Carbon\Carbon::parse($date)->format('Y年n月j日') }}の勤怠</h2>
 
     <div class="month-nav">
-        <a href="">← 前月</a>
-        <p>2023/06</p>
-        <a href="">翌月 →</a>
+        <a href="/admin/attendance/list?date={{ \Carbon\Carbon::parse($date)->copy()->subDay()->toDateString() }}">
+            ← 前日
+        </a>
+
+        <p>{{ \Carbon\Carbon::parse($date)->format('Y/m/d') }}</p>
+
+        <a href="/admin/attendance/list?date={{ \Carbon\Carbon::parse($date)->copy()->addDay()->toDateString() }}">
+            翌日 →
+        </a>
     </div>
 
     <table class="attendance-table">
         <tr>
-            <th>日付</th>
+            <th>名前</th>
             <th>出勤</th>
             <th>退勤</th>
             <th>休憩</th>
             <th>合計</th>
             <th>詳細</th>
         </tr>
+
         @foreach($attendances as $attendance)
         <tr>
-            <td>{{ \Carbon\Carbon::parse($attendance->work_date)->locale('ja')->isoFormat('MM/DD(ddd)') }}</td>
+            <td>{{ $attendance->user->name }}</td>
             <td>{{ \Carbon\Carbon::parse($attendance->clock_in)->format('H:i') }}</td>
             <td>{{ \Carbon\Carbon::parse($attendance->clock_out)->format('H:i') }}</td>
             <td>
@@ -62,7 +69,7 @@
                 @endif
             </td>
             <td>
-                <a href="/attendance/{{ $attendance->id }}">
+                <a href="/admin/attendance/{{ $attendance->id }}">
                     詳細
                 </a>
             </td>

@@ -179,4 +179,24 @@ class AttendanceController extends Controller
 
         return view('attendance.request_detail', compact('correction'));
     }
+
+    //管理者一覧
+    public function adminList(Request $request)
+    {
+        $date = $request->query('date', now()->toDateString());
+
+        $attendances = Attendance::with(['user', 'breaks'])
+            ->whereDate('work_date', $date)
+            ->get();
+
+        return view('admin.attendance_list', compact('attendances', 'date'));
+    }
+
+    //管理者詳細
+    public function adminShow($id)
+    {
+        $attendance = Attendance::with(['user', 'breaks'])->findOrFail($id);
+
+        return view('admin.attendance_show', compact('attendance'));
+    }
 }
