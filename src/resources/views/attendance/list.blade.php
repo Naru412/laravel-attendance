@@ -9,9 +9,15 @@
     <h2>勤怠一覧</h2>
 
     <div class="month-nav">
-        <a href="">← 前月</a>
-        <p>2023/06</p>
-        <a href="">翌月 →</a>
+        <a href="/attendance/list?month={{ $previousMonth }}">
+            ← 前月
+        </a>
+
+        <p>{{ $currentMonth->format('Y/m') }}</p>
+
+        <a href="/attendance/list?month={{ $nextMonth }}">
+            翌月 →
+        </a>
     </div>
 
     <table class="attendance-table">
