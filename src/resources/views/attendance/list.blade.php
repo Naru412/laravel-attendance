@@ -61,7 +61,11 @@
                     {{ sprintf('%02d:%02d', $hours, $minutes) }}
                 @endif
             </td>
-            <td><a href="/attendance/{{ $attendance->id }}">詳細</a></td>
+            <td>
+                <a href="/attendance/{{ $attendance->id }}">
+                    詳細
+                </a>
+            </td>
         </tr>
         @endforeach
     </table>

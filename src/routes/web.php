@@ -29,6 +29,7 @@ Route::get('admin/login', function (){
     return view('auth.admin_login');
 });
 Route::get('/admin/attendance/list', [Attendancecontroller::class, 'adminList']);
+Route::get('/admin/attendance/{id}', [Attendancecontroller::class, 'adminShow']);
 
 
 

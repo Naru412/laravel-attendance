@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/admin_attendance_list.css') }}">
@@ -9,9 +9,15 @@
     <h2>{{ \Carbon\Carbon::parse($date)->format('Y年n月j日') }}の勤怠</h2>
 
     <div class="month-nav">
-        <a href="">← 前月</a>
-        <p>2023/06</p>
-        <a href="">翌月 →</a>
+        <a href="/admin/attendance/list?date={{ \Carbon\Carbon::parse($date)->copy()->subDay()->toDateString() }}">
+            ← 前日
+        </a>
+
+        <p>{{ \Carbon\Carbon::parse($date)->format('Y/m/d') }}</p>
+
+        <a href="/admin/attendance/list?date={{ \Carbon\Carbon::parse($date)->copy()->addDay()->toDateString() }}">
+            翌日 →
+        </a>
     </div>
 
     <table class="attendance-table">
@@ -24,7 +30,7 @@
             <th>詳細</th>
         </tr>
 
-        @foreach($attendance as $attendance)
+        @foreach($attendances as $attendance)
         <tr>
             <td>{{ $attendance->user->name }}</td>
             <td>{{ \Carbon\Carbon::parse($attendance->clock_in)->format('H:i') }}</td>
@@ -62,7 +68,11 @@
                     {{ sprintf('%02d:%02d', $hours, $minutes) }}
                 @endif
             </td>
-            <td>詳細</td>
+            <td>
+                <a href="/admin/attendance/{{ $attendance->id }}">
+                    詳細
+                </a>
+            </td>
         </tr>
         @endforeach
     </table>
