@@ -9,13 +9,13 @@
     <h2>{{ \Carbon\Carbon::parse($date)->format('Y年n月j日') }}の勤怠</h2>
 
     <div class="month-nav">
-        <a href="/admin/attendance/list?date={{ \Carbon\Carbon::parse($date)->copy()->subDay()->toDateString() }}">
+        <a href="/admin/attendance/list?date={{ $previousDate }}">
             ← 前日
         </a>
 
-        <p>{{ \Carbon\Carbon::parse($date)->format('Y/m/d') }}</p>
+        <p>{{ $displayDate }}</p>
 
-        <a href="/admin/attendance/list?date={{ \Carbon\Carbon::parse($date)->copy()->addDay()->toDateString() }}">
+        <a href="/admin/attendance/list?date={{ $nextDate }}">
             翌日 →
         </a>
     </div>
