@@ -199,11 +199,22 @@ class AttendanceController extends Controller
     {
         $date = $request->query('date', now()->toDateString());
 
+        $currentDate = Carbon::parse($date);
+        $previousDate = $currentDate->copy()->subDay()->toDateString();
+        $nextDate = $currentDate->copy()->addDay()->toDateString();
+        $displayDate = $currentDate->format('Y/m/d');
+
         $attendances = Attendance::with(['user', 'breaks'])
             ->whereDate('work_date', $date)
             ->get();
 
-        return view('admin.attendance_list', compact('attendances', 'date'));
+        return view('admin.attendance_list', compact(
+            'attendances', 
+            'date',
+            'previousDate',
+            'nextDate',
+            'displayDate'
+            ));
     }
 
     //管理者詳細
