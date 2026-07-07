@@ -8,7 +8,7 @@
 <main class="attendance-detail">
     <h2>勤怠詳細</h2>
 
-    <form action="/attendance/{{ $attendance->id }}" method="post">
+    <form action="/admin/attendance/{{ $attendance->id }}" method="post">
         @csrf
 
         <table class="detail-table">
@@ -95,8 +95,12 @@
         </table>
 
         <div class="button-area">
+            @if ($pendingCorrection)
+                <p class="error-message">承認待ちのため修正できません。</p>
+            @else
             <button type="submit" class="update-btn">
                 修正
+            @endif
             </button>
         </div>
     </form>
