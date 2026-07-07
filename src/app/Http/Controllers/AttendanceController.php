@@ -217,13 +217,25 @@ class AttendanceController extends Controller
     {
         $attendance = Attendance::with(['user', 'breaks'])->findOrFail($id);
 
-        return view('admin.attendance_show', compact('attendance'));
+        $pendingCorrection = AttendanceCorrection::where('attendance_id', $attendance->id)
+            ->where('status', 'pending')
+            ->exists();
+
+        return view('admin.attendance_show', compact('attendance', 'pendingCorrection'));
     }
 
     //管理者出勤退勤更新
     public function adminUpdate(AdminAttendanceRequest $request, $id)
     {
         $attendance = Attendance::findOrFail($id);
+
+        $pendingCorrection = AttendanceCorrection::where('attendance_id', $attendance->id)
+            ->where('status', 'pending')
+            ->exists();
+
+        if ($pendingCorrection) {
+            return redirect('/admin\attendance/' . $id);
+        }
 
         $attendance->update([
             'clock_in' => $attendance->work_date . ' ' . $request->clock_in,

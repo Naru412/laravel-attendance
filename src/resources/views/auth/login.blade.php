@@ -7,7 +7,7 @@
 @section('content')
 <div class="login-container">
     <div class="login-form__heading">
-        <h1>管理者ログインする</h1>
+        <h1>ログインする</h1>
     </div>
     <form class="form" action="{{ route('login') }}" method="post" novalidate autocomplete="off">
         @csrf

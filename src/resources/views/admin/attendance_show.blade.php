@@ -95,8 +95,12 @@
         </table>
 
         <div class="button-area">
+            @if ($pendingCorrection)
+                <p class="error-message">承認待ちのため修正できません。</p>
+            @else
             <button type="submit" class="update-btn">
                 修正
+            @endif
             </button>
         </div>
     </form>
