@@ -9,7 +9,7 @@ use App\Models\BreakTime;
 use App\Http\Requests\AttendanceUpdateRequest;
 use App\Models\AttendanceCorrection;
 use App\Models\BreakCorrection;
-
+use App\Http\Requests\AdminAttendanceRequest;
 
 class AttendanceController extends Controller
 {
@@ -221,9 +221,9 @@ class AttendanceController extends Controller
     }
 
     //管理者出勤退勤更新
-    public function adminUpdate(Request $request, $id)
+    public function adminUpdate(AdminAttendanceRequest $request, $id)
     {
-        $attendance = Attendance::with('breaks')->findOrFail($id);
+        $attendance = Attendance::findOrFail($id);
 
         $attendance->update([
             'clock_in' => $attendance->work_date . ' ' . $request->clock_in,
@@ -232,15 +232,25 @@ class AttendanceController extends Controller
         ]);
 
         //休憩更新
-        foreach ($request->break_ids as $index => $breakId) {
-            $break = BreakTime::findOrFail($breakId);
+        foreach ($request->break_starts as $index => $breakStart) {
+            $breakEnd = $request->break_ends[$index];
 
-            $break->update([
-                'break_start' => $attendance->work_date . ' ' . $request->break_starts[$index],
-                'break_end' => $attendance->work_date . ' ' . $request->break_ends[$index],
-            ]);
-        }
+            if (!$breakStart || !$breakEnd) {
+                continue;
+            }
+
+            $breakId = $request->break_ids[$index] ?? null;
+
+            if ($breakId){
+                $break = BreakTime::findOrFail($breakId);
+
+                $break->update([
+                    'break_start' => $attendance->work_date . ' ' . $request->break_starts[$index],
+                    'break_end' => $attendance->work_date . ' ' . $request->break_ends[$index],
+                ]);
+            }
 
         return redirect('/admin/attendance/' . $id);
+        }
     }
 }
