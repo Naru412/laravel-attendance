@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Attendance;
 use App\Models\BreakTime;
+use App\Models\User;
 use App\Http\Requests\AttendanceUpdateRequest;
 use App\Models\AttendanceCorrection;
 use App\Models\BreakCorrection;
@@ -159,11 +160,6 @@ class AttendanceController extends Controller
                     'requested_break_end' => $attendance->work_date . ' ' . $breakEnd,
                 ]);
             }
-
-            /* $break->update([
-                'break_start' => $attendance->work_date . ' ' . $request->break_starts[$index],
-                'break_end' => $attendance->work_date . ' ' . $request->break_ends[$index],
-            ]); */
         }
         
         return redirect('/attendance/' .$id);
@@ -234,7 +230,7 @@ class AttendanceController extends Controller
             ->exists();
 
         if ($pendingCorrection) {
-            return redirect('/admin\attendance/' . $id);
+            return redirect('/admin/attendance/' . $id);
         }
 
         $attendance->update([
@@ -264,5 +260,13 @@ class AttendanceController extends Controller
 
         return redirect('/admin/attendance/' . $id);
         }
+    }
+
+    //スタッフリスト
+    public function staffList()
+    {
+        $users = User::where('role', 'user')->get();
+
+        return view('admin.staff_list', compact('users'));
     }
 }
