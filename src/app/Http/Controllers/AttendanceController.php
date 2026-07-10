@@ -269,4 +269,11 @@ class AttendanceController extends Controller
 
         return view('admin.staff_list', compact('users'));
     }
+
+    //スタッフ月次勤怠一覧
+    public function staffAttendance($id) {
+        $user = User::findOrFail($id);
+
+        return view('admin.staff_attendance',compact('user'));
+    }
 }

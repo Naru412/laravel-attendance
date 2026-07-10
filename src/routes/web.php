@@ -32,6 +32,8 @@ Route::get('/admin/attendance/list', [AttendanceController::class, 'adminList'])
 Route::get('/admin/attendance/{id}', [AttendanceController::class, 'adminShow']);
 Route::post('/admin/attendance/{id}', [AttendanceController::class, 'adminUpdate']);
 Route::get('/admin/staff/list', [AttendanceController::class, 'staffList']);
+Route::get('/admin/staff/{id}', [AttendanceController::class, 'staffAttendance']);
+
 
 
 
