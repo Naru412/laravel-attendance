@@ -1,8 +1,62 @@
+body {
+    background: #f2f2f2;
+}
+
 .attendance {
     display: flex;
     justify-content: center;
     align-items:center;
     flex-direction: column;
     margin-top: 100px;
+}
 
+.status {
+    background: #b9b9b9;
+    color: #666;
+    padding: 6px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    border-radius: 20px;
+}
+
+.date {
+    font-size: 32px;
+    margin-top: 5px;
+}
+
+.time {
+    font-size: 70px;
+    font-weight: bold;
+    margin-top: 0;
+}
+
+.button-area {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    margin-top: 0;
+}
+
+.work-button {
+    width: 180px;
+    height: 60px;
+    background: #000;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.break-button {
+    width: 180px;
+    height: 60px;
+    background: #fff;
+    color: #000;
+    border: none;
+    border-radius: 10px;
+    font-size: 24px;
+    font-weight: bold;
 }

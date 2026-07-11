@@ -39,4 +39,8 @@
 
 .header-nav__button {
     appearance: none;
+    background: none;
+    border: none;
+    color: aliceblue;
+    text-decoration: none;
 }

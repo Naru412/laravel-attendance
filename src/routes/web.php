@@ -33,15 +33,10 @@ Route::get('/admin/attendance/{id}', [AttendanceController::class, 'adminShow'])
 Route::post('/admin/attendance/{id}', [AttendanceController::class, 'adminUpdate']);
 Route::get('/admin/staff/list', [AttendanceController::class, 'staffList']);
 Route::get('/admin/staff/{id}', [AttendanceController::class, 'staffAttendance']);
-
-
-
-
+Route::get('/admin/stamp_correction_request/list', [AttendanceController::class, 'adminRequestList']);
+Route::get('/admin/stamp_correction_request/{id}', [AttendanceController::class, 'adminRequestDetail']);
+Route::post('/admin/stamp_correction_request/{id}/approve', [AttendanceController::class, 'approve']);
 
 Route::get('/', function () {
     return redirect('/login');
     });
-
-    
-
-   
