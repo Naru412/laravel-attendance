@@ -271,9 +271,29 @@ class AttendanceController extends Controller
     }
 
     //スタッフ月次勤怠一覧
-    public function staffAttendance($id) {
+    public function staffAttendance(Request $request, $id) {
         $user = User::findOrFail($id);
 
-        return view('admin.staff_attendance',compact('user'));
+        $currentMonth = $request->month
+            ? Carbon::parse($request->month)
+            : Carbon::now();
+
+        $previousMonth = $currentMonth->copy()->subMonth()->format('Y-m');
+        $nextMonth = $currentMonth->copy()->addMonth()->format('Y-m');
+
+        $attendances = Attendance::with('breaks')
+            ->where('user_id', $user->id)
+            ->whereYear('work_date', $currentMonth->year)
+            ->whereMonth('work_date', $currentMonth->month)
+            ->orderBy('work_date', 'asc')
+            ->get();
+
+        return view('admin.staff_attendance', compact(
+            'user',
+            'attendances',
+            'currentMonth',
+            'previousMonth',
+            'nextMonth'
+            ));
     }
 }
