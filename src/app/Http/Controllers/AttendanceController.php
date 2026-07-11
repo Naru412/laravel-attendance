@@ -296,4 +296,62 @@ class AttendanceController extends Controller
             'nextMonth'
             ));
     }
+
+    //修正申請一覧
+    public function adminRequestList(Request $request)
+    {
+        $status = $request->query('status', 'pending');
+
+        $corrections = AttendanceCorrection::with([ 'user', 'attendance'])
+            ->where('status', $status)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+            return view('admin.request_list', compact(
+                'corrections',
+                'status'
+            ));
+    }
+
+    //申請詳細画面
+    public function adminRequestDetail($id)
+    {
+        $correction = AttendanceCorrection::findOrFail($id);
+
+        return view('admin.request_detail', compact('correction'));
+    }
+
+    //承認
+    public function approve($id)
+    {
+        $correction = AttendanceCorrection::with([
+            'attendance',
+            'breakCorrections',
+        ])->findOrFail($id);
+
+        $attendance = $correction->attendance;
+                //出勤退勤を修正申請の内容へ変更
+        $attendance->update([
+            'clock_in' => $correction->requested_clock_in,
+            'clock_out' => $correction->requested_clock_out,
+        ]);
+                //休憩を更新
+        foreach ($correction->breakCorrections as $breakCorrection) {
+            if ($breakCorrection->break_id) {
+                $break = BreakTime::findOrFail($breakCorrection->break_id);
+
+                $break->update([
+                    'break_start' => $breakCorrection->requested_break_start,
+                    'break_end' => $breakCorrection->requested_break_end,
+                ]);
+            }
+        }  
+        
+                //更新を承認済に変更
+        $correction->update([
+            'status' => 'approved',
+        ]);    
+        
+        return redirect('/admin/stamp_correction_request/list');
+    }
 }
