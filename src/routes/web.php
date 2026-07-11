@@ -28,9 +28,12 @@ Route::get('/stamp_correction_request/{id}', [AttendanceController::class, 'requ
 Route::get('admin/login', function (){
     return view('auth.admin_login');
 });
-Route::get('/admin/attendance/list', [Attendancecontroller::class, 'adminList']);
-Route::get('/admin/attendance/{id}', [Attendancecontroller::class, 'adminShow']);
-Route::post('/admin/attendance/{id}', [Attendancecontroller::class, 'adminUpdate']);
+Route::get('/admin/attendance/list', [AttendanceController::class, 'adminList']);
+Route::get('/admin/attendance/{id}', [AttendanceController::class, 'adminShow']);
+Route::post('/admin/attendance/{id}', [AttendanceController::class, 'adminUpdate']);
+Route::get('/admin/staff/list', [AttendanceController::class, 'staffList']);
+Route::get('/admin/staff/{id}', [AttendanceController::class, 'staffAttendance']);
+
 
 
 
