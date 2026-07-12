@@ -9,7 +9,7 @@
                 <ul class="header-nav">
                     @if(Auth::check())
                     <li class="header-nav__item">
-                        <a class="header-nav__link" href="/attendance">勤怠一覧</a>
+                        <a class="header-nav__link" href="/admin/attendance/list">勤怠一覧</a>
                     </li>
                     <li class="header-nav__item">
                         <a class="header-nav__link" href="/admin/staff/list">スタッフ一覧</a>
