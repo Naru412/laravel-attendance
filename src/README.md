@@ -2,7 +2,9 @@
 
 ## 環境構築
 ### リポジトリをクローン
-
+'''bash
+git clone https://github.com/Naru412/laravel-attendance.git
+'''
 
 ### プロジェクトへ移動
 '''bash
