@@ -13,7 +13,7 @@ cd laravel-attendance
 
 ### Dockerを起動
 '''bash
-docker compose up -d
+docker compose up -d --build
 '''
 ### phpコンテナへ入る
 '''bash
@@ -22,13 +22,20 @@ docker-compose exec php bash
 
 ### composerがインストールされているか確認
 '''bash
-composer -V
+composer install
 '''
 
 ### 環境変数を作成
 '''bash
 cp .env.example .env
 '''
+### .envのDB設定を以下のように変更
+ - DB_CONNECTION=mysql
+ - DB_HOST=mysql
+ - DB_PORT=3306
+ - DB_DATABASE=laravel_db
+ - DB_USERNAME=laravel_user
+ - DB_PASSWORD=laravel_pass
 
 ### アプリケーションキーを生成
 '''bash
@@ -36,8 +43,7 @@ php artisan key:generate
 '''
 ### マイグレーション・シーディング
 '''bash
-php artisan migrate
-php artisan db:seed
+php artisan migrate:fresh --seed
 '''
 
 ## 使用技術
